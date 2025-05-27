@@ -1,30 +1,34 @@
-import React, { useState } from "react";
-import Event1 from "../../src/userAssets/images/11.webp";
+import React, { useEffect, useState } from "react";
+import { getEvent } from "../api/landingpage-api"; // ✅ Adjust this path to your actual API call
 
 const tabs = ["Events", "Upcoming Events", "Gallery"];
 
-const tabData = {
-  Events: [
-    { img: Event1, alt: "Event 1" },
-    { img: Event1, alt: "Event 2" },
-    { img: Event1, alt: "Event 3" },
-    { img: Event1, alt: "Event 4" },
-    { img: Event1, alt: "Event 5" },
-    { img: Event1, alt: "Event 6" },
-  ],
-  "Upcoming Events": [
-    { img: Event1, alt: "Upcoming Event 1" },
-    { img: Event1, alt: "Upcoming Event 2" },
-  ],
-  Gallery: [
-    { img: Event1, alt: "Gallery Image 1" },
-    { img: Event1, alt: "Gallery Image 2" },
-    { img: Event1, alt: "Gallery Image 3" },
-  ],
-};
-
 const EventsSection = () => {
   const [activeTab, setActiveTab] = useState("Events");
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getEvent();
+        if (res?.data && Array.isArray(res.data)) {
+          setEvents(res.data);
+        }
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Filter data based on selected tab
+  const renderData = events.filter((event) => {
+    if (activeTab === "Events") return event.type === "event";
+    if (activeTab === "Upcoming Events") return event.type === "upcoming";
+    if (activeTab === "Gallery") return event.type === "gallery";
+    return false;
+  });
 
   return (
     <section className="w-full bg-gradient-to-br from-[#0e1a2b] to-[#05141f] py-16 px-4 text-white font-sans">
@@ -49,23 +53,34 @@ const EventsSection = () => {
           ))}
         </div>
 
-        {/* Images Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {tabData[activeTab].map((event, index) => (
-            <div
-              key={index}
-              className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="aspect-[4/3] w-full">
-                <img
-                  src={event.img}
-                  alt={event.alt}
-                  className="w-full h-full object-cover"
-                />
+        {/* Content Grid */}
+        {renderData.length > 0 ? (
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {renderData.map((event, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-[#101f34]"
+              >
+                <div className="aspect-[4/3] w-full">
+                  <img
+                    src={
+                      event.image.startsWith("http")
+                        ? event.image
+                        : "/default-image.jpg"
+                    }
+                    alt={event.text || "Event Image"}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4 text-white text-sm sm:text-base">
+                  {event.text}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-400 text-lg">No events available.</p>
+        )}
       </div>
     </section>
   );

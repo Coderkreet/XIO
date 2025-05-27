@@ -50,9 +50,7 @@ const UsersHome = () => {
         <OurProducts />
       </div>
 
-      <div id="roadmap">
-        <ProjectPlan />
-      </div>
+     
 
       <div id="tokenomics">
         <TokenomicsTabs />
@@ -77,9 +75,9 @@ const UsersHome = () => {
 
       <Featured /> 
 
-       <div id="recent-events">
+       {/* <div id="recent-events">
         <RecentEvents />
-      </div> 
+      </div>  */}
 
        <div id="faq">
         <FaqSection />

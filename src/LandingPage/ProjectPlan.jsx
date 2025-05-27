@@ -45,7 +45,7 @@ export default function ProjectPlan() {
     return (
         <section className=" text-white py-20 px-6 font1">
             <div className="max-w-7xl mx-auto text-center">
-                <h1 className="bg-gradient-to-r from-[#5E2FF4] via-[#C570FB] to-[#5E2FF4] bg-clip-text text-transparent uppercase font-bold text-center tracking-widest">Road map</h1>
+                <h1 className="bg-gradient-to-r from-[#5E2FF4] via-[#C570FB] to-[#5E2FF4] bg-clip-text text-transparent uppercase font-bold text-center text-3xl mb-10 tracking-widest">Road map</h1>
                 <h2 className="text-4xl font-semibold mb-16 tracking-wide">Our project plan</h2>
 
                 <div className="relative">
