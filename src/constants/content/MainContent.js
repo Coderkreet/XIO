@@ -22,6 +22,8 @@ export const backendConfig = {
   // origin: "http://192.168.3.56:6018",
   // base: "http://192.168.190.56:6018/api",
   // origin: "http://192.168.190.56:6018",
-  base: "https://api.nexoinvest.org/api",
-  origin: "https://api.nexoinvest.org",
+  // base: "https://api.nexoinvest.org/api",
+  // origin: "https://api.nexoinvest.org",
+  base: "https://w8vq2gnr-5000.inc1.devtunnels.ms/api",
+  origin: "https://w8vq2gnr-5000.inc1.devtunnels.ms/",
 };

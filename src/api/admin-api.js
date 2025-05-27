@@ -2,6 +2,8 @@ import axios from "axios";
 import { backendConfig } from "../constants/content/MainContent";
 
 const apiURL = backendConfig.base + "/admin";
+const LendingApiURL = backendConfig.base ;
+
 console.log(apiURL);
 const token = localStorage.getItem("token");
 
@@ -214,6 +216,66 @@ export async function deleteBanner(id) {
 
 export async function RefferralIncomeAPi() {
   const response = await axios.get(`${apiURL}/getAllReferalBonus-history`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function createEvent(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/events`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getAllEvents() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/events`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getEventsByType(type) {
+  const response = await axios.get(`${LendingApiURL}/landingpage/events/type/${type}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getEventById(id) {
+  const response = await axios.get(`${LendingApiURL}/landingpage/events/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function updateEvent(id, payload) {
+  const response = await axios.put(`${LendingApiURL}/landingpage/events/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteEvent(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/events/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
