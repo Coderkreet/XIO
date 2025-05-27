@@ -70,7 +70,7 @@ export async function registerWithEmailApi(payload, ref) {
   return response?.data;
 }
 export async function getUserInfo() {
-  const response = await axios.get(`${loginApiBaseAUrl}/get-Profile`, {
+  const response = await axios.get(`${loginApiBaseAUrl}/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

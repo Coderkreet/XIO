@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import logo from "../../assets/website/nexoLogo1.png";
+import logo from "../../userAssets/logo.png";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {

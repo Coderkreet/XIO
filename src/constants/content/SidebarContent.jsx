@@ -22,16 +22,16 @@ export const SidebarContent = {
             icon: <LuPackageSearch />,
             name: "Income Report",
             options: [
-                {
-                    id: "Referral Income",
-                    name: "Referral Income",
-                    link: AuthenticatedRoutes.REFERRAL_INCOME_REPORT,
-                },
-                {
-                    id: "ROI Income",
-                    name: "ROI Income",
-                    link: AuthenticatedRoutes.ROI_INCOME_REPORT,
-                },
+                // {
+                //     id: "Referral Income",
+                //     name: "Referral Income",
+                //     link: AuthenticatedRoutes.REFERRAL_INCOME_REPORT,
+                // },
+                // {
+                //     id: "ROI Income",
+                //     name: "ROI Income",
+                //     link: AuthenticatedRoutes.ROI_INCOME_REPORT,
+                // },
                 // {
                 //   id: "Spin Income",
                 //   name: "Spin Income",
@@ -42,11 +42,11 @@ export const SidebarContent = {
                 //   name: "ROI Income",
                 //   link: AuthenticatedRoutes.ROYALTY_INCOME_REPORT,
                 // },
-                {
-                    id: "Level Income",
-                    name: "Level Income",
-                    link: AuthenticatedRoutes.LEVEL_INCOME_REPORT,
-                },
+                // {
+                //     id: "Level Income",
+                //     name: "Level Income",
+                //     link: AuthenticatedRoutes.LEVEL_INCOME_REPORT,
+                // },
                 // {
                 //     id: "Matching Income",
                 //     name: "Matching Income",
@@ -71,23 +71,23 @@ export const SidebarContent = {
                 },
             ],
         },
-        {
-            id: "Our Team",
-            icon: <FaUsers />,
-            name: "Our Team",
-            options: [
-                {
-                    id: "Direct",
-                    name: "Direct",
-                    link: AuthenticatedRoutes.TEAM_DIRECT,
-                },
-                {
-                    id: "Levels",
-                    name: "Levels",
-                    link: AuthenticatedRoutes.TEAM_TREE,
-                },
-            ],
-        },
+        // {
+        //     id: "Our Team",
+        //     icon: <FaUsers />,
+        //     name: "Our Team",
+        //     options: [
+        //         {
+        //             id: "Direct",
+        //             name: "Direct",
+        //             link: AuthenticatedRoutes.TEAM_DIRECT,
+        //         },
+        //         {
+        //             id: "Levels",
+        //             name: "Levels",
+        //             link: AuthenticatedRoutes.TEAM_TREE,
+        //         },
+        //     ],
+        // },
         {
             id: "OurPlan",
             icon: <MdOutlineAddCard />,
@@ -105,12 +105,12 @@ export const SidebarContent = {
                 },
             ],
         },
-        {
-            id: "Notification & Announcements",
-            icon: <TfiAnnouncement />,
-            name: "Notification & Announcements",
-            link: AuthenticatedRoutes.NEWS_AND_NOTIF,
-        },
+        // {
+        //     id: "Notification & Announcements",
+        //     icon: <TfiAnnouncement />,
+        //     name: "Notification & Announcements",
+        //     link: AuthenticatedRoutes.NEWS_AND_NOTIF,
+        // },
         {
             id: "Support",
             icon: <BiSupport />,
@@ -126,12 +126,12 @@ export const SidebarContent = {
                     name: "Raise Ticket History",
                     link: AuthenticatedRoutes.SUPPORT_RAISE_TICKET_HISTORY,
                 },
-                {
-                    id: "Connect on Telegram",
-                    name: "Connect on Telegram",
-                    link: MainContent.telegram_link,
-                    external: true,
-                },
+                // {
+                //     id: "Connect on Telegram",
+                //     name: "Connect on Telegram",
+                //     link: MainContent.telegram_link,
+                //     external: true,
+                // },
             ],
         },
         // {

@@ -2,16 +2,19 @@
 import "../../styles/user/UserHome.css";
 import SSDataTable from "../../components/SSDataTable";
 import { Button5 } from "../../components/ui/Buttons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cardImg from "../../assets/cardImg.png";
 import { useNavigate } from "react-router-dom";
 import { AuthenticatedRoutes } from "../../constants/Routes";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { formatDate } from "../../utils/dateFunctions";
 import { FaRegCopy } from "react-icons/fa6";
+import { getUserInfo } from "../../api/auth-api";
+import { setUserInfo } from "../../redux/slice/UserInfoSlice";
 
 const UserHome = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.userInfo.userInfo);
     const [copiedText1, setCopiedText1] = useState(false);
 
@@ -48,6 +51,21 @@ const UserHome = () => {
         </div>
     );
 
+    async function FetchData() {
+        try {
+            const res = await getUserInfo();
+            if (res?.data) {
+                dispatch(setUserInfo(res.data));
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    }
+
+    useEffect(() => {
+        FetchData();
+    }, []);
+
     return (
         <div className="UserHome">
             <div className="top-wrapper martop">
@@ -63,7 +81,7 @@ const UserHome = () => {
                             <span className="para1 bold">Ready to get started?</span>
                             <p className="para1">Check out your dashboard to begin!</p>
                             <div className="btn-box">
-                                <Button5 onClick={() => navigate(AuthenticatedRoutes.OUR_PLANS)} name={"Buy Nexocoin"} />
+                                <Button5 onClick={() => navigate(AuthenticatedRoutes.OUR_PLANS)} name={"Buy XIO Coin"} />
                             </div>
                         </div>
                         <div className="c-right">
@@ -89,26 +107,26 @@ const UserHome = () => {
                     value={user?.totalInvestment?.toFixed(2) || "0"}
                     img="https://img.icons8.com/3d-fluency/94/growing-money.png"
                 />
-                <IncomeCard
+                {/* <IncomeCard
                     title="Referral Income"
                     value={user?.directReferalAmount?.toFixed(2) || "0"}
                     img="https://img.icons8.com/3d-fluency/94/expensive-price.png"
-                />
-                <IncomeCard
+                /> */}
+                {/* <IncomeCard
                     title="ROI Income"
                     value={user?.dailyRoi?.toFixed(2) || "0"}
                     img="https://img.icons8.com/3d-fluency/94/business-management.png"
-                />
-                <IncomeCard
+                /> */}
+                {/* <IncomeCard
                     title="Level Income"
                     value={user?.levelIncome?.toFixed(2) || "0"}
                     img="https://img.icons8.com/isometric/50/no-connection.png"
-                />
-                <IncomeCard
+                /> */}
+                {/* <IncomeCard
                     title="Referral Member"
                     value={user?.referedUsers?.length || "0"}
                     img="https://img.icons8.com/isometric/50/user.png"
-                />
+                /> */}
                 <IncomeCard
                     title="Total Payout"
                     value={user?.totalPayouts?.toFixed(2) || "0"}
@@ -134,7 +152,7 @@ const UserHome = () => {
                         </div>
                     </div>
 
-                    <div className="ss-card copy-code-wrapper martop">
+                    {/* <div className="ss-card copy-code-wrapper martop">
                         <p>Your Refer Code</p>
                         <div className="code">
                             <span className="codebox">{referCode}</span>
@@ -142,16 +160,16 @@ const UserHome = () => {
                                 {copiedText1 ? "Copied!" : <FaRegCopy />}
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
-
+{/* 
             <div className="ss-card mar-top">
                 <div className="head">
                     <h5 className="cardHeading">Direct Referral History</h5>
                 </div>
                 <SSDataTable data={user?.referedUsers} />
-            </div>
+            </div> */}
         </div>
     );
 };

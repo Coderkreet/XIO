@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, Upload } from 'lucide-react';
 import { getAllEvents, createEvent, updateEvent, deleteEvent } from '../../api/admin-api';
+import { getAllFAQs, createFAQ, updateFAQ, deleteFAQ } from '../../api/admin-api';
+import { getAllOverviews, createOverview, updateOverview, deleteOverview } from '../../api/admin-api';
 
 const UpdateContent = () => {
   // State for Events
@@ -8,9 +10,21 @@ const UpdateContent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch events on component mount
+  // State for FAQ
+  const [faqs, setFaqs] = useState([]);
+  const [faqLoading, setFaqLoading] = useState(true);
+  const [faqError, setFaqError] = useState(null);
+
+  // State for Overview
+  const [overviews, setOverviews] = useState([]);
+  const [overviewLoading, setOverviewLoading] = useState(true);
+  const [overviewError, setOverviewError] = useState(null);
+
+  // Fetch events, FAQs and Overviews on component mount
   useEffect(() => {
     fetchEvents();
+    fetchFAQs();
+    fetchOverviews();
   }, []);
 
   const fetchEvents = async () => {
@@ -27,11 +41,33 @@ const UpdateContent = () => {
     }
   };
 
-  // State for FAQ
-  const [faqs, setFaqs] = useState([
-    { id: 1, question: 'What is your return policy?', answer: 'We offer 30-day returns on all products.' },
-    { id: 2, question: 'How do I contact support?', answer: 'You can reach us at support@company.com' }
-  ]);
+  const fetchFAQs = async () => {
+    try {
+      setFaqLoading(true);
+      const response = await getAllFAQs();
+      setFaqs(response || []);
+      setFaqError(null);
+    } catch (err) {
+      setFaqError('Failed to fetch FAQs');
+      console.error('Error fetching FAQs:', err);
+    } finally {
+      setFaqLoading(false);
+    }
+  };
+
+  const fetchOverviews = async () => {
+    try {
+      setOverviewLoading(true);
+      const response = await getAllOverviews();
+      setOverviews(response.data || []);
+      setOverviewError(null);
+    } catch (err) {
+      setOverviewError('Failed to fetch overviews');
+      console.error('Error fetching overviews:', err);
+    } finally {
+      setOverviewLoading(false);
+    }
+  };
 
   // State for Logo
   const [logo, setLogo] = useState({ id: 1, image: '' });
@@ -50,9 +86,10 @@ const UpdateContent = () => {
   // Generic CRUD handlers
   const handleAdd = (type) => {
     const newItem = {
-      id: Date.now(),
-      ...(type === 'events' && { text: '', img: '', type: 'Event' }),
+      _id: Date.now(),
+      ...(type === 'events' && { text: '', image: '', type: 'event' }),
       ...(type === 'faqs' && { question: '', answer: '' }),
+      ...(type === 'overviews' && { text: '', description: '', image: '' }),
       ...(type === 'products' && { title: '', text: '', image: '', url: '' })
     };
     
@@ -67,30 +104,53 @@ const UpdateContent = () => {
     const { type, item } = editingItem;
     
     try {
-      if (type === 'events') {
-        if (!events.find(e => e.id === item.id)) {
-          // Create new event
+      if (type === 'event') {
+        if (!events.find(e => e._id === item._id)) {
           const response = await createEvent(item);
           setEvents([...events, response.data]);
         } else {
-          // Update existing event
-          const response = await updateEvent(item.id, item);
-          setEvents(events.map(e => e.id === item.id ? response.data : e));
+          const response = await updateEvent(item._id, item);
+          setEvents(events.map(e => e._id === item._id ? response.data : e));
         }
       } else if (type === 'faqs') {
-        if (!faqs.find(f => f.id === item.id)) {
-          setFaqs([...faqs, item]);
+        const faqData = {
+          question: item.question,
+          answer: item.answer
+        };
+        
+        if (!faqs.find(f => f._id === item._id)) {
+          // Create new FAQ
+          const response = await createFAQ(faqData);
+          setFaqs([...faqs, response]);
         } else {
-          setFaqs(faqs.map(f => f.id === item.id ? item : f));
+          // Update existing FAQ
+          const response = await updateFAQ(item._id, faqData);
+          setFaqs(faqs.map(f => f._id === item._id ? response : f));
         }
       } else if (type === 'products') {
-        if (!products.find(p => p.id === item.id)) {
+        if (!products.find(p => p._id === item._id)) {
           setProducts([...products, item]);
         } else {
-          setProducts(products.map(p => p.id === item.id ? item : p));
+          setProducts(products.map(p => p._id === item._id ? item : p));
         }
       } else if (type === 'logo') {
         setLogo(item);
+      } else if (type === 'overviews') {
+        const overviewData = {
+          text: item.text,
+          description: item.description,
+          image: item.image || ''
+        };
+        
+        if (!overviews.find(o => o._id === item._id)) {
+          // Create new overview
+          const response = await createOverview(overviewData);
+          setOverviews([...overviews, response]);
+        } else {
+          // Update existing overview
+          const response = await updateOverview(item._id, overviewData);
+          setOverviews(overviews.map(o => o._id === item._id ? response : o));
+        }
       }
       
       setEditingItem(null);
@@ -102,13 +162,19 @@ const UpdateContent = () => {
 
   const handleDelete = async (type, id) => {
     try {
-      if (type === 'events') {
+      if (type === 'event') {
         await deleteEvent(id);
-        setEvents(events.filter(e => e.id !== id));
+        setEvents(events.filter(e => e._id !== id));
       } else if (type === 'faqs') {
-        setFaqs(faqs.filter(f => f.id !== id));
+        await deleteFAQ(id);
+        setFaqs(faqs.filter(f => f._id !== id));
       } else if (type === 'products') {
         setProducts(products.filter(p => p.id !== id));
+      } else if (type === 'logo') {
+        setLogo({ id: 1, image: '' });
+      } else if (type === 'overviews') {
+        await deleteOverview(id);
+        setOverviews(overviews.filter(o => o._id !== id));
       }
     } catch (err) {
       console.error('Error deleting item:', err);
@@ -119,13 +185,15 @@ const UpdateContent = () => {
   const handleImageUpload = (field, file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      setEditingItem({
-        ...editingItem,
-        item: {
-          ...editingItem.item,
-          [field]: e.target.result
-        }
-      });
+      if (editingItem) {
+        setEditingItem({
+          ...editingItem,
+          item: {
+            ...editingItem.item,
+            [field]: e.target.result
+          }
+        });
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -162,9 +230,8 @@ const UpdateContent = () => {
             onClick={onPreview}
             className="text-purple-400 hover:text-purple-300"
           >
-            {previewMode[`${type}-${item.id}`] ? <EyeOff size={16} /> : <Eye size={16} />}
+            {previewMode[`${type}-${item._id}`] ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
-          <span className="text-gray-400 text-sm">ID: {item.id}</span>
         </div>
         <div className="flex space-x-2">
           <button
@@ -182,13 +249,33 @@ const UpdateContent = () => {
         </div>
       </div>
       
-      {!previewMode[`${type}-${item.id}`] ? (
+      {!previewMode[`${type}-${item._id}`] ? (
         <div className="text-white space-y-1">
+          {type === 'overviews' && (
+            <>
+              <p className="font-medium"><span className="text-purple-400">Text:</span> {item.text}</p>
+              <p className="text-gray-300"><span className="text-purple-400">Description:</span> {item.description}</p>
+              {item.imageUrl && (
+                <div className="mt-2">
+                  <img src={item.imageUrl} alt="Overview" className="max-w-32 max-h-32 object-cover rounded" />
+                </div>
+              )}
+            </>
+          )}
           {type === 'events' && (
             <>
-              <p><span className="text-purple-400">Text:</span> {item.text}</p>
-              <p><span className="text-purple-400">Type:</span> {item.type}</p>
-              {item.img && <p><span className="text-purple-400">Image:</span> Uploaded</p>}
+              <div className="flex items-center space-x-2 mb-2">
+                <span className={`px-2 py-1 rounded text-xs ${
+                  item.type === 'event' ? 'bg-green-600' : 
+                  item.type === 'upcoming' ? 'bg-yellow-600' : 'bg-blue-600'
+                }`}>
+                  {item.type}
+                </span>
+              </div>
+              <p className="font-medium">{item.text}</p>
+              {item.image && (
+                <img src={item.image} alt="Event" className="mt-2 max-w-32 max-h-32 object-cover rounded" />
+              )}
             </>
           )}
           {type === 'faqs' && (
@@ -209,19 +296,28 @@ const UpdateContent = () => {
       ) : (
         <div className="bg-gray-800 p-4 rounded border-l-4 border-purple-500">
           <h4 className="text-purple-400 font-semibold mb-2">Preview:</h4>
+          {type === 'overviews' && (
+            <div className="text-white">
+              <h3 className="font-bold text-lg mb-2">{item.text}</h3>
+              <p className="text-gray-300 mb-2">{item.description}</p>
+              {item.imageUrl && (
+                <img src={item.imageUrl} alt="Overview" className="mb-2 max-w-32 max-h-32 object-cover rounded" />
+              )}
+            </div>
+          )}
           {type === 'events' && (
             <div className="text-white">
               <div className="flex items-center space-x-2 mb-2">
                 <span className={`px-2 py-1 rounded text-xs ${
-                  item.type === 'Event' ? 'bg-green-600' : 
-                  item.type === 'Upcoming' ? 'bg-yellow-600' : 'bg-blue-600'
+                  item.type === 'event' ? 'bg-green-600' : 
+                  item.type === 'upcoming' ? 'bg-yellow-600' : 'bg-blue-600'
                 }`}>
                   {item.type}
                 </span>
               </div>
               <p className="font-medium">{item.text}</p>
-              {item.img && (
-                <img src={item.img} alt="Event" className="mt-2 max-w-32 max-h-32 object-cover rounded" />
+              {item.image && (
+                <img src={item.image} alt="Event" className="mt-2 max-w-32 max-h-32 object-cover rounded" />
               )}
             </div>
           )}
@@ -254,6 +350,7 @@ const UpdateContent = () => {
     
     const { type, item } = editingItem;
     const [formData, setFormData] = useState({ ...item });
+    const [error, setError] = useState('');
     
     const handleInputChange = (field, value) => {
       setFormData(prev => ({
@@ -262,29 +359,75 @@ const UpdateContent = () => {
       }));
     };
 
+    const handleImageUpload = (field, file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFormData(prev => ({
+          ...prev,
+          [field]: e.target.result
+        }));
+      };
+      reader.readAsDataURL(file);
+    };
+
+    const validateOverviewData = () => {
+      if (!formData.text) {
+        setError('Text is required');
+        return false;
+      }
+      if (!formData.description) {
+        setError('Description is required');
+        return false;
+      }
+      return true;
+    };
+
     const handleSave = async () => {
       try {
-        if (type === 'events') {
-          if (!events.find(e => e.id === formData.id)) {
-            // Create new event
+        if (type === 'overviews') {
+          if (!validateOverviewData()) {
+            return;
+          }
+
+          const overviewData = {
+            text: formData.text,
+            description: formData.description,
+            image: formData.image || ''
+          };
+          
+          if (!overviews.find(o => o._id === formData._id)) {
+            const response = await createOverview(overviewData);
+            setOverviews([...overviews, response.data]);
+          } else {
+            const response = await updateOverview(formData._id, overviewData);
+            setOverviews(overviews.map(o => o._id === formData._id ? response.data : o));
+          }
+        } else if (type === 'events') {
+          if (!events.find(e => e._id === formData._id)) {
             const response = await createEvent(formData);
             setEvents([...events, response.data]);
           } else {
-            // Update existing event
-            const response = await updateEvent(formData.id, formData);
-            setEvents(events.map(e => e.id === formData.id ? response.data : e));
+            const response = await updateEvent(formData._id, formData);
+            setEvents(events.map(e => e._id === formData._id ? response.data : e));
           }
         } else if (type === 'faqs') {
-          if (!faqs.find(f => f.id === formData.id)) {
-            setFaqs([...faqs, formData]);
+          const faqData = {
+            question: formData.question,
+            answer: formData.answer
+          };
+          
+          if (!faqs.find(f => f._id === formData._id)) {
+            const response = await createFAQ(faqData);
+            setFaqs([...faqs, response]);
           } else {
-            setFaqs(faqs.map(f => f.id === formData.id ? formData : f));
+            const response = await updateFAQ(formData._id, faqData);
+            setFaqs(faqs.map(f => f._id === formData._id ? response : f));
           }
         } else if (type === 'products') {
-          if (!products.find(p => p.id === formData.id)) {
+          if (!products.find(p => p._id === formData._id)) {
             setProducts([...products, formData]);
           } else {
-            setProducts(products.map(p => p.id === formData.id ? formData : p));
+            setProducts(products.map(p => p._id === formData._id ? formData : p));
           }
         } else if (type === 'logo') {
           setLogo(formData);
@@ -302,7 +445,7 @@ const UpdateContent = () => {
         <div className="bg-gray-900 border border-purple-500 rounded-lg p-6 w-full max-w-md mx-4">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-white">
-              {formData.id === Date.now() || !events.concat(faqs, products).find(i => i.id === formData.id) ? 'Add' : 'Edit'} {type.slice(0, -1)}
+              {formData._id === Date.now() || !events.concat(faqs, products, overviews).find(i => i._id === formData._id) ? 'Add' : 'Edit'} {type.slice(0, -1)}
             </h3>
             <button
               onClick={() => setEditingItem(null)}
@@ -312,28 +455,83 @@ const UpdateContent = () => {
             </button>
           </div>
           
+          {error && (
+            <div className="bg-red-500 text-white p-3 rounded mb-4">
+              {error}
+            </div>
+          )}
+          
           <div className="space-y-4">
-            {type === 'events' && (
+            {type === 'overviews' && (
               <>
                 <div>
-                  <label className="block text-purple-400 mb-1">Text</label>
+                  <label className="block text-purple-400 mb-1">Text *</label>
                   <input
                     type="text"
                     value={formData.text}
                     onChange={(e) => handleInputChange('text', e.target.value)}
                     className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-purple-500"
+                    placeholder="Enter overview text"
                   />
                 </div>
                 <div>
-                  <label className="block text-purple-400 mb-1">Type</label>
+                  <label className="block text-purple-400 mb-1">Description *</label>
+                  <textarea
+                    value={formData.description}
+                    onChange={(e) => handleInputChange('description', e.target.value)}
+                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-purple-500"
+                    rows="4"
+                    placeholder="Enter overview description"
+                  />
+                </div>
+                <div>
+                  <label className="block text-purple-400 mb-1">Image</label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload('image', e.target.files[0])}
+                      className="hidden"
+                      id="overview-image"
+                    />
+                    <label
+                      htmlFor="overview-image"
+                      className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded cursor-pointer flex items-center space-x-1"
+                    >
+                      <Upload size={16} />
+                      <span>Upload</span>
+                    </label>
+                    {formData.image && <span className="text-green-400 text-sm">Image uploaded</span>}
+                  </div>
+                  {formData.image && (
+                    <img src={formData.image} alt="Preview" className="mt-2 max-w-32 max-h-32 object-cover rounded" />
+                  )}
+                </div>
+              </>
+            )}
+            {type === 'events' && (
+              <>
+                <div>
+                  <label className="block text-purple-400 mb-1">Text *</label>
+                  <input
+                    type="text"
+                    value={formData.text}
+                    onChange={(e) => handleInputChange('text', e.target.value)}
+                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-purple-500"
+                    placeholder="Enter event text"
+                  />
+                </div>
+                <div>
+                  <label className="block text-purple-400 mb-1">Type *</label>
                   <select
                     value={formData.type}
                     onChange={(e) => handleInputChange('type', e.target.value)}
                     className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-purple-500"
                   >
-                    <option value="Event">Event</option>
-                    <option value="Upcoming">Upcoming</option>
-                    <option value="Gallery">Gallery</option>
+                    <option value="">Select type</option>
+                    <option value="event">Event</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="gallery">Gallery</option>
                   </select>
                 </div>
                 <div>
@@ -342,7 +540,7 @@ const UpdateContent = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageUpload('img', e.target.files[0])}
+                      onChange={(e) => handleImageUpload('image', e.target.files[0])}
                       className="hidden"
                       id="event-image"
                     />
@@ -353,8 +551,11 @@ const UpdateContent = () => {
                       <Upload size={16} />
                       <span>Upload</span>
                     </label>
-                    {formData.img && <span className="text-green-400 text-sm">Image uploaded</span>}
+                    {formData.image && <span className="text-green-400 text-sm">Image uploaded</span>}
                   </div>
+                  {formData.image && (
+                    <img src={formData.image} alt="Preview" className="mt-2 max-w-32 max-h-32 object-cover rounded" />
+                  )}
                 </div>
               </>
             )}
@@ -495,6 +696,28 @@ const UpdateContent = () => {
         )}
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Overview Card */}
+          <Card title="Overview Management" type="overviews">
+            {overviewLoading ? (
+              <div className="text-center text-white py-4">Loading overviews...</div>
+            ) : overviewError ? (
+              <div className="text-center text-red-500 py-4">{overviewError}</div>
+            ) : (
+              <div className="max-h-96 overflow-y-auto">
+                {overviews.map(overview => (
+                  <ItemDisplay
+                    key={overview._id}
+                    item={overview}
+                    type="overviews"
+                    onEdit={() => handleEdit('overviews', overview)}
+                    onDelete={() => handleDelete('overviews', overview._id)}
+                    onPreview={() => togglePreview('overviews', overview._id)}
+                  />
+                ))}
+              </div>
+            )}
+          </Card>
+
           {/* Events Card */}
           <Card title="Events Management" type="events">
             {loading ? (
@@ -503,12 +726,12 @@ const UpdateContent = () => {
               <div className="max-h-96 overflow-y-auto">
                 {events.map(event => (
                   <ItemDisplay
-                    key={event.id}
+                    key={event._id}
                     item={event}
                     type="events"
                     onEdit={() => handleEdit('events', event)}
-                    onDelete={() => handleDelete('events', event.id)}
-                    onPreview={() => togglePreview('events', event.id)}
+                    onDelete={() => handleDelete('events', event._id)}
+                    onPreview={() => togglePreview('events', event._id)}
                   />
                 ))}
               </div>
@@ -517,18 +740,24 @@ const UpdateContent = () => {
 
           {/* FAQ Card */}
           <Card title="FAQ Management" type="faqs">
-            <div className="max-h-96 overflow-y-auto">
-              {faqs.map(faq => (
-                <ItemDisplay
-                  key={faq.id}
-                  item={faq}
-                  type="faqs"
-                  onEdit={() => handleEdit('faqs', faq)}
-                  onDelete={() => handleDelete('faqs', faq.id)}
-                  onPreview={() => togglePreview('faqs', faq.id)}
-                />
-              ))}
-            </div>
+            {faqLoading ? (
+              <div className="text-center text-white py-4">Loading FAQs...</div>
+            ) : faqError ? (
+              <div className="text-center text-red-500 py-4">{faqError}</div>
+            ) : (
+              <div className="max-h-96 overflow-y-auto">
+                {faqs.map(faq => (
+                  <ItemDisplay
+                    key={faq._id}
+                    item={faq}
+                    type="faqs"
+                    onEdit={() => handleEdit('faqs', faq)}
+                    onDelete={() => handleDelete('faqs', faq._id)}
+                    onPreview={() => togglePreview('faqs', faq._id)}
+                  />
+                ))}
+              </div>
+            )}
           </Card>
 
           {/* Logo Card */}

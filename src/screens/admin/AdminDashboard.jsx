@@ -78,36 +78,36 @@ const AdminDashboard = () => {
       value: data?.totalWithdrawals?.toFixed(2) || 0,
       iconSrc: "https://img.icons8.com/3d-fluency/94/atm.png",
     },
-    {
-      title: "Today Direct Referral Income",
-      value: data?.todayDirectReferral?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/conference-call--v1.png",
-    },
-    {
-      title: "Total Direct Referral Income",
-      value: data?.totalDirectReferral?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/conference-call--v1.png",
-    },
-    {
-      title: "Today Level Income",
-      value: data?.todayLevelIncome?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/total-sales.png",
-    },
-    {
-      title: "Total Level Income",
-      value: data?.totalLevelIncome?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/total-sales.png",
-    },
-    {
-      title: "Today Roi Income",
-      value: data?.todayRoi?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/split-transaction.png",
-    },
-    {
-      title: "Total Roi Income",
-      value: data?.totalRoi?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/banknotes-and-coins.png",
-    },
+    // {
+    //   title: "Today Direct Referral Income",
+    //   value: data?.todayDirectReferral?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/conference-call--v1.png",
+    // },
+    // {
+    //   title: "Total Direct Referral Income",
+    //   value: data?.totalDirectReferral?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/conference-call--v1.png",
+    // },
+    // {
+    //   title: "Today Level Income",
+    //   value: data?.todayLevelIncome?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/total-sales.png",
+    // },
+    // {
+    //   title: "Total Level Income",
+    //   value: data?.totalLevelIncome?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/total-sales.png",
+    // },
+    // {
+    //   title: "Today Roi Income",
+    //   value: data?.todayRoi?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/split-transaction.png",
+    // },
+    // {
+    //   title: "Total Roi Income",
+    //   value: data?.totalRoi?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/banknotes-and-coins.png",
+    // },
   ];
 
   const serialNumberTemplate = (rowData, { rowIndex }) => rowIndex + 1;

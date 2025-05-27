@@ -8,7 +8,9 @@ import { AuthenticatedRoutes } from "../../constants/Routes";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { Accordion } from "react-bootstrap";
 import { FaCaretRight } from "react-icons/fa";
-import navLogo from '../../assets/website/nexoLogo1.png'
+import navLogo from '../../userAssets/logo.png';
+
+
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -81,6 +83,7 @@ const Sidebar = () => {
             <img
               src={navLogo}
               alt="logo"
+              height={900}
               className="nav-logo-icon"
             />
           </Link>

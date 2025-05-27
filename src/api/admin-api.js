@@ -283,3 +283,105 @@ export async function deleteEvent(id) {
   });
   return response?.data;
 }
+
+
+export async function createFAQ(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/faqs`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getAllFAQs() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/faqs`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getFAQById(id) {
+  const response = await axios.get(`${LendingApiURL}/landingpage/faqs/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function updateFAQ(id, payload) {
+  const response = await axios.put(`${LendingApiURL}/landingpage/faqs/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteFAQ(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/faqs/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+
+export async function createOverview(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/overviews`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getAllOverviews() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/overviews`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getOverviewById(id) {
+  const response = await axios.get(`${LendingApiURL}/landingpage/overviews/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function updateOverview(id, payload) {
+  const response = await axios.put(`${LendingApiURL}/landingpage/overviews/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteOverview(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/overviews/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
