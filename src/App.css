@@ -13,7 +13,7 @@ body {
   font-weight: 500;
   line-height: 1.5rem;
   color: var(--white);
-  background-color:  #070023;
+
 }
 
 @media screen and (max-width: 768px) {
