@@ -149,104 +149,106 @@ export const SidebarContent = {
         // },
     ],
     admin: [
-        {
-            id: "Dashboard",
-            icon: <HiOutlineSquares2X2 />,
-            name: "Dashboard",
-            link: AuthenticatedRoutes.ADMIN_DASHBOARD,
-        },
-        {
-            id: "Users",
-            icon: <FaUsers />,
-            name: "Users",
-            options: [
-                {
-                    id: "All Users",
-                    icon: <FaUsers />,
-                    name: "All Users",
-                    link: AuthenticatedRoutes.ALL_USERS,
-                },
-                {
-                    id: "Active Users",
-                    icon: <FaUsers />,
-                    name: "Active Users",
-                    link: AuthenticatedRoutes.ACTIVE_USERS,
-                },
-            ],
-        },
+        // {
+        //     id: "Dashboard",
+        //     icon: <HiOutlineSquares2X2 />,
+        //     name: "Dashboard",
+        //     link: AuthenticatedRoutes.ADMIN_DASHBOARD,
+        // },
 
-        {
-            id: "financialReports",
-            icon: <FaUserTie />,
-            name: "Financial Reports",
-            options: [
-                {
-                    id: "Transaction History",
-                    name: "Package Purchase History",
-                    link: AuthenticatedRoutes.PURCHASE_PLAN_HISTORY,
-                },
-                {
-                    id: "Referral Income History",
-                    name: "Referral Income History",
-                    link: AuthenticatedRoutes.DIRECT_REFERRAL_INCOME_REPORT,
-                },
-                {
-                    id: "level Income History",
-                    name: "Level Income History",
-                    link: AuthenticatedRoutes.LEVEL_INCOME_REPORT,
-                },
-                {
-                    id: "ROI Income History",
-                    name: "ROI Income History",
-                    link: AuthenticatedRoutes.ROI_INCOME_HISTORY,
-                },
-                // {
-                //     id: "Airdrop Income History",
-                //     name: "Airdrop Income History",
-                //     link: AuthenticatedRoutes.DIRECT_REFERRAL_INCOME_REPORT,
-                // },
-            ],
-        },
-        {
-            id: "Withdrawal Request",
-            icon: <FaWallet />,
-            name: "Withdrawal",
-            options: [
-                // {
-                //     id: "Withdrawal Update",
-                //     name: "Withdrawal Update",
-                //     link: AuthenticatedRoutes.WITHDRAWAL_UPDATE,
-                // },
-                {
-                    id: "Withdrawal History",
-                    name: "Withdrawal History",
-                    link: AuthenticatedRoutes.APPROVED_WITHDRAWAL_REQUEST,
-                },
-            ],
-        },
-        {
-            id: "Upload Banners",
-            icon: <FaRegNewspaper />,
-            name: "Upload Banners",
-            link: AuthenticatedRoutes.NEWS_AND_NOTIF_ADMIN,
-        },
         {
             id: "Upload Content",
             icon: <FaRegNewspaper />,
             name: "Upload Content",
             link: AuthenticatedRoutes.UPDATE_CONTENT,
         },
-        {
-            id: "Support",
-            icon: <BiSupport />,
-            name: "Help & Support",
-            options: [
-                {
-                    id: "Support history",
-                    name: "Raise Ticket History",
-                    link: AuthenticatedRoutes.RAISE_TICKET_LIST,
-                },
-            ],
-        },
+        // {
+        //     id: "Users",
+        //     icon: <FaUsers />,
+        //     name: "Users",
+        //     options: [
+        //         {
+        //             id: "All Users",
+        //             icon: <FaUsers />,
+        //             name: "All Users",
+        //             link: AuthenticatedRoutes.ALL_USERS,
+        //         },
+        //         {
+        //             id: "Active Users",
+        //             icon: <FaUsers />,
+        //             name: "Active Users",
+        //             link: AuthenticatedRoutes.ACTIVE_USERS,
+        //         },
+        //     ],
+        // },
+
+        // {
+        //     id: "financialReports",
+        //     icon: <FaUserTie />,
+        //     name: "Financial Reports",
+        //     options: [
+        //         {
+        //             id: "Transaction History",
+        //             name: "Package Purchase History",
+        //             link: AuthenticatedRoutes.PURCHASE_PLAN_HISTORY,
+        //         },
+        //         {
+        //             id: "Referral Income History",
+        //             name: "Referral Income History",
+        //             link: AuthenticatedRoutes.DIRECT_REFERRAL_INCOME_REPORT,
+        //         },
+        //         {
+        //             id: "level Income History",
+        //             name: "Level Income History",
+        //             link: AuthenticatedRoutes.LEVEL_INCOME_REPORT,
+        //         },
+        //         {
+        //             id: "ROI Income History",
+        //             name: "ROI Income History",
+        //             link: AuthenticatedRoutes.ROI_INCOME_HISTORY,
+        //         },
+        //         // {
+        //         //     id: "Airdrop Income History",
+        //         //     name: "Airdrop Income History",
+        //         //     link: AuthenticatedRoutes.DIRECT_REFERRAL_INCOME_REPORT,
+        //         // },
+        //     ],
+        // },
+        // {
+        //     id: "Withdrawal Request",
+        //     icon: <FaWallet />,
+        //     name: "Withdrawal",
+        //     options: [
+        //         // {
+        //         //     id: "Withdrawal Update",
+        //         //     name: "Withdrawal Update",
+        //         //     link: AuthenticatedRoutes.WITHDRAWAL_UPDATE,
+        //         // },
+        //         {
+        //             id: "Withdrawal History",
+        //             name: "Withdrawal History",
+        //             link: AuthenticatedRoutes.APPROVED_WITHDRAWAL_REQUEST,
+        //         },
+        //     ],
+        // },
+        // {
+        //     id: "Upload Banners",
+        //     icon: <FaRegNewspaper />,
+        //     name: "Upload Banners",
+        //     link: AuthenticatedRoutes.NEWS_AND_NOTIF_ADMIN,
+        // },
+      
+        // {
+        //     id: "Support",
+        //     icon: <BiSupport />,
+        //     name: "Help & Support",
+        //     options: [
+        //         {
+        //             id: "Support history",
+        //             name: "Raise Ticket History",
+        //             link: AuthenticatedRoutes.RAISE_TICKET_LIST,
+        //         },
+        //     ],
+        // },
     ],
 };

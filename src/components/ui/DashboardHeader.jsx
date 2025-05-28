@@ -16,38 +16,38 @@ const DashboardHeader = ({ name }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const role = localStorage.getItem("role");
+  // useEffect(() => {
+  //   const role = localStorage.getItem("role");
 
-    const fetchUserInfo = async () => {
-      try {
-        setLoading(true);
-        if (role === "Admin") {
-          const user = await getAdminInfo();
-          dispatch(setUserInfo(user));
-        } else {
-          const user = await getUserInfo();
+  //   const fetchUserInfo = async () => {
+  //     try {
+  //       setLoading(true);
+  //       if (role === "Admin") {
+  //         const user = await getAdminInfo();
+  //         dispatch(setUserInfo(user));
+  //       } else {
+  //         const user = await getUserInfo();
 
-          dispatch(setUserInfo(user));
-        }
-      } catch (error) {
-        console.error("Error fetching user info:", error);
-        Swal.fire({
-          title: "Error",
-          text: error?.response?.data?.message || "Error fetching user info",
-          confirmButtonText: "OK",
-          timer: 3000,
-        }).then(() => {
-          localStorage.clear();
-          navigate(AuthenticatedRoutes.USER_HOME);
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+  //         dispatch(setUserInfo(user));
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user info:", error);
+  //       Swal.fire({
+  //         title: "Error",
+  //         text: error?.response?.data?.message || "Error fetching user info",
+  //         confirmButtonText: "OK",
+  //         timer: 3000,
+  //       }).then(() => {
+  //         localStorage.clear();
+  //         navigate(AuthenticatedRoutes.USER_HOME);
+  //       });
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchUserInfo();
-  }, []);
+  //   fetchUserInfo();
+  // }, []);
 
   const logoutHandler = () => {
     localStorage.clear();

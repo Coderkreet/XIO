@@ -5,25 +5,26 @@ import AuthRegisterForm from "../../components/auth/AuthRegisterForm";
 import AuthLoginForm from "../../components/auth/AuthLoginForm";
 import UserMain from "../website/UserMain";
 import AuthAdminLoginForm from "../../components/auth/AuthAdminLoginForm";
+import UsersHome from "../website/UsersHome";
 const Auth = () => {
   return (
     <>
       <Routes>
-        <Route
+        {/* <Route
           path={AuthRoutes.LOGIN}
           element={<AuthMain inner={<AuthLoginForm />} />}
-        />
+        /> */}
         <Route
           path={AuthRoutes.ADMIN_LOGIN}
           element={<AuthMain inner={<AuthAdminLoginForm />} />}
         />
-        <Route
+        {/* <Route
           path={AuthRoutes.REGISTER}
           element={<AuthMain inner={<AuthRegisterForm />} />}
-        />
+        /> */}
 
         {/* <Route path="*" element={<AuthMain inner={<AuthLoginForm />} />} /> */}
-        <Route path="*" element={<UserMain />} />
+        <Route path="*" element={<UsersHome />} />
       </Routes>
     </>
   );

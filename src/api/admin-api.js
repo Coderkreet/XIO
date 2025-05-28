@@ -385,3 +385,178 @@ export async function deleteOverview(id) {
   });
   return response?.data;
 }
+
+
+export async function createProduct(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/products`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getAllProducts() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/products`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getProductById(id) {
+  const response = await axios.get(`${LendingApiURL}/landingpage/products/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function updateProduct(id, payload) {
+  const response = await axios.put(`${LendingApiURL}/landingpage/products/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteProduct(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/products/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function createWhyChooseUs(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/why-choose-us/create`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getAllWhyChooseUs() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/why-choose-us/all`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getWhyChooseUsById(id) {
+  const response = await axios.get(`${LendingApiURL}/landingpage/why-choose-us/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function updateWhyChooseUs(id, payload) {
+  const response = await axios.put(`${LendingApiURL}/landingpage/why-choose-us/update/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteWhyChooseUs(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/why-choose-us/delete/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+
+export async function uploadLogo(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/logos`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getLatestLogo() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/logos/latest`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteLogo(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/logos/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+
+export async function createTokenomics(payload) {
+  const response = await axios.post(`${LendingApiURL}/landingpage/createTokenomics`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function getTokenomics() {
+  const response = await axios.get(`${LendingApiURL}/landingpage/getTokenomics`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+
+export async function updateTokenomics(id, payload) {
+  const response = await axios.put(`${LendingApiURL}/landingpage/updateTokenomics/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+
+export async function deleteTokenomics(id) {
+  const response = await axios.delete(`${LendingApiURL}/landingpage/deleteTokenomics/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+  return response?.data;
+}
+

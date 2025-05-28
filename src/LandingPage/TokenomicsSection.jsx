@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   PieChart,
   Pie,
@@ -6,27 +6,50 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { getTokenomics } from "../api/admin-api";
 
 const tabs = ["Token", "Market", "Tracker"];
 
-const tokenData = [
-  { name: "Private Sale", value: 5, tokens: "50,000,000", color: "#63E6BE" },
-  { name: "Pre-sale", value: 15, tokens: "150,000,000", color: "#EC4899" },
-  { name: "Public Sale", value: 20, tokens: "200,000,000", color: "#A855F7" },
-  { name: "Marketing", value: 10, tokens: "100,000,000", color: "#3B82F6" },
-  { name: "Referral", value: 2, tokens: "20,000,000", color: "#FACC15" },
-  { name: "R & D", value: 1, tokens: "10,000,000", color: "#67E8F9" },
-  { name: "Airdrop", value: 1, tokens: "10,000,000", color: "#C084FC" },
-  { name: "Liquidity Staking", value: 12, tokens: "120,000,000", color: "#60A5FA" },
-  { name: "Ecosystem", value: 7, tokens: "70,000,000", color: "#38BDF8" },
-  { name: "Reserve", value: 4, tokens: "40,000,000", color: "#818CF8" },
-  { name: "Team", value: 18, tokens: "180,000,000", color: "#4ADE80" },
-  { name: "Charity", value: 1, tokens: "10,000,000", color: "#F472B6" },
-  { name: "Advisory", value: 4, tokens: "40,000,000", color: "#FB923C" },
+// Colors array for the pie chart
+const colors = [
+  "#63E6BE", "#EC4899", "#A855F7", "#3B82F6", "#FACC15", 
+  "#67E8F9", "#C084FC", "#60A5FA", "#38BDF8", "#818CF8", 
+  "#4ADE80", "#F472B6", "#FB923C"
 ];
 
 export default function TokenomicsTabs() {
   const [activeTab, setActiveTab] = useState("Token");
+  const [tokenomicsData, setTokenomicsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchTokenomicsData();
+  }, []);
+
+  const fetchTokenomicsData = async () => {
+    try {
+      setLoading(true);
+      const response = await getTokenomics();
+      if (response?.data) {
+        // Transform the data to include colors
+        const transformedData = response.data.map((item, index) => ({
+          ...item,
+          name: item.title,
+          value: item.percentage,
+          tokens: item.tokenQuantity.toLocaleString(),
+          color: colors[index % colors.length]
+        }));
+        setTokenomicsData(transformedData);
+      }
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching tokenomics:', err);
+      setError('Failed to fetch tokenomics data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const renderTable = () => (
     <div className="overflow-x-auto w-full">
@@ -45,16 +68,16 @@ export default function TokenomicsTabs() {
           </tr>
         </thead>
         <tbody className="bg-gray-800/50">
-          {tokenData.map((item, idx) => (
-            <tr key={idx} className="border-b border-gray-700 hover:bg-gray-700/30 transition-colors duration-200">
+          {tokenomicsData.map((item) => (
+            <tr key={item._id} className="border-b border-gray-700 hover:bg-gray-700/30 transition-colors duration-200">
               <td className="px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-8 lg:py-5 text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white">
-                {item.name}
+                {item.title}
               </td>
               <td className="px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-8 lg:py-5 text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-cyan-400">
-                {item.value}%
+                {item.percentage}%
               </td>
               <td className="px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-8 lg:py-5 text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-green-400">
-                {item.tokens}
+                {item.tokenQuantity.toLocaleString()}
               </td>
             </tr>
           ))}
@@ -182,44 +205,54 @@ export default function TokenomicsTabs() {
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-7 md:mb-8 text-white">
                 Token Distribution Chart
               </h3>
-              <ResponsiveContainer width="100%" height={300} className="sm:h-[350px] md:h-[400px]">
-                <PieChart>
-                  <Pie
-                    data={tokenData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius="80%"
-                    maxRadius={150}
-                    strokeWidth={2}
-                    stroke="#1f2937"
-                  >
-                    {tokenData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: '#1f2937',
-                      border: '1px solid #374151',
-                      borderRadius: '12px',
-                      color: '#fff',
-                      fontSize: '14px'
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+              {loading ? (
+                <div className="text-center text-white py-8">Loading chart data...</div>
+              ) : error ? (
+                <div className="text-center text-red-500 py-8">{error}</div>
+              ) : (
+                <ResponsiveContainer width="100%" height={300} className="sm:h-[350px] md:h-[400px]">
+                  <PieChart>
+                    <Pie
+                      data={tokenomicsData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius="80%"
+                      maxRadius={150}
+                      strokeWidth={2}
+                      stroke="#1f2937"
+                    >
+                      {tokenomicsData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: '#1f2937',
+                        border: '1px solid #374151',
+                        borderRadius: '12px',
+                        color: '#fff',
+                        fontSize: '14px'
+                      }}
+                      formatter={(value, name, props) => [
+                        `${value}%`,
+                        name
+                      ]}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              )}
               
               {/* Legend */}
               <div className="mt-6 sm:mt-7 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-3 md:gap-4 text-sm sm:text-base md:text-lg">
-                {tokenData.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-700/30 transition-colors">
+                {tokenomicsData.map((item) => (
+                  <div key={item._id} className="flex items-center gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-700/30 transition-colors">
                     <span
                       className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full border-2 border-gray-600 flex-shrink-0"
                       style={{ backgroundColor: item.color }}
                     ></span>
-                    <span className="font-medium text-white truncate">{item.name}</span>
+                    <span className="font-medium text-white truncate">{item.title}</span>
                   </div>
                 ))}
               </div>
@@ -230,7 +263,13 @@ export default function TokenomicsTabs() {
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-7 md:mb-8 text-white">
                 Detailed Breakdown
               </h3>
-              {renderTable()}
+              {loading ? (
+                <div className="text-center text-white py-8">Loading table data...</div>
+              ) : error ? (
+                <div className="text-center text-red-500 py-8">{error}</div>
+              ) : (
+                renderTable()
+              )}
             </div>
           </div>
         )}

@@ -52,32 +52,32 @@ const AdminDashboard = () => {
   }, []);
 
   const incomeCardData = [
-    {
-      title: "Total Users",
-      value: data?.totalUsers || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/guest-male--v1.png",
-      noMoneyIcon: true,
-    },
-    {
-      title: "Today Investment",
-      value: data?.todayInvestment?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/money-bag-euro.png",
-    },
-    {
-      title: "Total Investment",
-      value: data?.totalInvestment?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/money-bag-euro.png",
-    },
-    {
-      title: "Today Withdrawal",
-      value: data?.todayWithdrawal?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/atm.png",
-    },
-    {
-      title: "Total Withdrawal",
-      value: data?.totalWithdrawals?.toFixed(2) || 0,
-      iconSrc: "https://img.icons8.com/3d-fluency/94/atm.png",
-    },
+    // {
+    //   title: "Total Users",
+    //   value: data?.totalUsers || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/guest-male--v1.png",
+    //   noMoneyIcon: true,
+    // },
+    // {
+    //   title: "Today Investment",
+    //   value: data?.todayInvestment?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/money-bag-euro.png",
+    // },
+    // {
+    //   title: "Total Investment",
+    //   value: data?.totalInvestment?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/money-bag-euro.png",
+    // },
+    // {
+    //   title: "Today Withdrawal",
+    //   value: data?.todayWithdrawal?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/atm.png",
+    // },
+    // {
+    //   title: "Total Withdrawal",
+    //   value: data?.totalWithdrawals?.toFixed(2) || 0,
+    //   iconSrc: "https://img.icons8.com/3d-fluency/94/atm.png",
+    // },
     // {
     //   title: "Today Direct Referral Income",
     //   value: data?.todayDirectReferral?.toFixed(2) || 0,
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        <div className="ss-card mar-top">
+        {/* <div className="ss-card mar-top">
           <div className="head">
             <h5 className="cardHeading">Total Users</h5>
           </div>
@@ -181,7 +181,7 @@ const AdminDashboard = () => {
 
             </DataTable>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

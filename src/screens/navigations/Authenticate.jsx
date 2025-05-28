@@ -50,15 +50,14 @@ import ActiveUsers from "../admin/ActiveUsers";
 import DirectRefferalIncomeHistory from "../user/income-pages/DirectRefferalIncomeHistory";
 import UpdateContent from "../admin/UpdateContent";
 
-
 const Authenticate = () => {
     const role = localStorage.getItem("role");
     return (
         <>
             <Routes>
-                {role === "Admin" ? (
+                {role === "Admin" && (
                     <>
-                        <Route
+                        {/* <Route
                             path={"*"}
                             element={
                                 <DashboardMain
@@ -66,8 +65,8 @@ const Authenticate = () => {
                                     name="Dashboard"
                                 />
                             }
-                        />
-                        <Route
+                        /> */}
+                        {/* <Route
                             path={
                                 AuthenticatedRoutes.APPROVED_WITHDRAWAL_REQUEST
                             }
@@ -77,11 +76,9 @@ const Authenticate = () => {
                                     name="Complete Withdrawal Request"
                                 />
                             }
-                        />
-                          <Route
-                            path={
-                                AuthenticatedRoutes.UPDATE_CONTENT
-                            }
+                        /> */}
+                        <Route
+                            path="*"
                             element={
                                 <DashboardMain
                                     inner={<UpdateContent />}
@@ -89,119 +86,9 @@ const Authenticate = () => {
                                 />
                             }
                         />
-                        <Route
-                            path={AuthenticatedRoutes.ADMIN_DASHBOARD}
-                            element={
-                                <DashboardMain
-                                    inner={<AdminDashboard />}
-                                    name="Dashboard"
-                                />
-                            }
-                        />
-
-                        <Route
-                            path={AuthenticatedRoutes.RAISE_TICKET_LIST}
-                            element={
-                                <DashboardMain
-                                    inner={<ComplainTicketList />}
-                                    name="Raise Ticket History"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.ALL_USERS}
-                            element={
-                                <DashboardMain
-                                    inner={<AllUsersList />}
-                                    name="All Users List"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.ACTIVE_USERS}
-                            element={
-                                <DashboardMain
-                                    inner={<ActiveUsers />}
-                                    name="Active Users"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.LEVEL_INCOME_REPORT}
-                            element={
-                                <DashboardMain
-                                    inner={<AdminLevelIncomeReports />}
-                                    name="Level Income History"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.SELF_INCOME_REPORT}
-                            element={
-                                <DashboardMain
-                                    inner={<AdminSelfIncomeReports />}
-                                    name="Self Income History"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.DIRECT_REFERRAL_INCOME_REPORT}
-                            element={
-                                <DashboardMain
-                                    inner={<DirectRefferalIncomeHistory />}
-                                    name="Direct Referral Income History"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.ROI_INCOME_HISTORY}
-                            element={
-                                <DashboardMain
-                                    inner={<AdminMatchingIncomeReports />}
-                                    name="ROI Income History"
-                                />
-                            }
-                        />
-                        <Route
-                            path={
-                                AuthenticatedRoutes.DIRECT_REFERRAL_INCOME_REPORT
-                            }
-                            element={
-                                <DashboardMain
-                                    inner={<AdminDirectReferralIncomeReports />}
-                                    name="Airdrop Income History"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.PURCHASE_PLAN_HISTORY}
-                            element={
-                                <DashboardMain
-                                    inner={<AllPurchasePackageList />}
-                                    name="All Purchase Package List"
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.NEWS_AND_NOTIF_ADMIN}
-                            element={
-                                <DashboardMain
-                                    inner={<NewsandNotifs />}
-                                    name="Content Management "
-                                />
-                            }
-                        />
-                        <Route
-                            path={AuthenticatedRoutes.WITHDRAWAL_UPDATE}
-                            element={
-                                <DashboardMain
-                                    inner={<WithdrawalUpdate />}
-                                    name="Withdrawal Details Update"
-                                />
-                            }
-                        />
                     </>
-                ) : (
+                )}
+                {/* {role !== "Admin" && (
                     <>
                         <Route
                             path={AuthenticatedRoutes.USER_HOME}
@@ -354,7 +241,6 @@ const Authenticate = () => {
                                 />
                             }
                         />
-
                         <Route
                             path={AuthenticatedRoutes.FUND_REQUEST}
                             element={
@@ -439,7 +325,7 @@ const Authenticate = () => {
                             }
                         />
                     </>
-                )}
+                )} */}
             </Routes>
         </>
     );
