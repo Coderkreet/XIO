@@ -30,7 +30,7 @@ const OurProducts = () => {
             Our Products <GoArrowDownRight className="text-3xl text-[#9747FF]" />
           </h2>
           <p className="text-gray-300 text-lg sm:text-xl md:text-2xl leading-relaxed">
-            At Mr Mint, we pride ourselves on crafting high-quality products to elevate your experience. Here's a glimpse of our exclusive offerings.
+          we pride ourselves on crafting high-quality products to elevate your experience. Here's a glimpse of our exclusive offerings.
           </p>
         </div>
 

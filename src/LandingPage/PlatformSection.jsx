@@ -7,8 +7,8 @@ const PlatformSection = () => {
         {/* Header */}
    <div className="flex flex-col items-center text-center gap-4 mb-6 text-base sm:text-lg text-gray-400">
   <div className="flex text-4xl  items-center gap-4">
-    <span className="font-semibold text-white">01</span>
-    <div className="h-px w-12 bg-gray-600" />
+
+   
     <span>Platform</span>
   </div>
 

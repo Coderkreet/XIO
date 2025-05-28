@@ -6,7 +6,6 @@ import { getLatestLogo } from "../api/landingpage-api"; // Adjust path if needed
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState('');
-
   const fetchData = async () => {
     try {
       const res = await getLatestLogo();

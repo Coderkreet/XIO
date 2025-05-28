@@ -2,7 +2,7 @@
 import appLogoClr from "../../assets/app/appLogoTran.png";
 import icon from "../../assets/app/icon.png";
 export const MainContent = {
-  appName: "NEXOCOIN",
+  appName: "XIOCOIN",
   appLogo: appLogoClr,
   appLogoClr: appLogoClr,
   appURL: "",

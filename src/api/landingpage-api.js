@@ -48,6 +48,21 @@ export async function getAllWhyChooseUs() {
 // === Logo ===
 export async function getLatestLogo() {
   const response = await axios.get(`${loginApiBaseAUrl}/logos/latest`)
+  //  console.log('respone',response.data)
+  return response?.data;
+}
+
+// === TOKEN ROUTES===
+export async function getAllTokens() {
+  const response = await axios.get(`${loginApiBaseAUrl}/token/all`)
+  // console.log('respone',response.data)
+  return response?.data;
+}
+
+
+// === ROADMAP ROUTES===
+export async function getAllRoadMaps() {
+  const response = await axios.get(`${loginApiBaseAUrl}/roadmap/all`)
    console.log('respone',response.data)
   return response?.data;
 }
