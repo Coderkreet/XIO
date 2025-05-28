@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../LandingPage/Navbar';
 import HeroSection from '../../LandingPage/HeroSection';
-import TokenProgress from '../../LandingPage/TokenProgress';
+
 import PlatformSection from '../../LandingPage/PlatformSection';
 import EcosystemSection from '../../LandingPage/EcosystemSection';
 import OurProducts from '../../LandingPage/OurProducts';
@@ -9,7 +9,7 @@ import RecentEvents from '../../LandingPage/RecentEvents';
 import FaqSection from '../../LandingPage/FaqSection';
 import Footer from '../../LandingPage/Footer';
 import Slider from '../../LandingPage/Slider';
-import Featured from '../../LandingPage/Featured';
+import Featured from '../../LandingPage/LogoSlider';
 import Choose from '../../LandingPage/Choose';
 import ProjectPlan from '../../LandingPage/ProjectPlan';
 import ICOTokenSale from '../../LandingPage/ICOTokenSale';
@@ -17,6 +17,8 @@ import ListedOnSection from '../../LandingPage/ListedOnSection';
 import Overview from '../../LandingPage/Overview';
 import EventsSection from '../../LandingPage/EventsSection';
 import TokenomicsTabs from '../../LandingPage/TokenomicsSection'
+import TechLogosSlider from '../../LandingPage/LogoSlider';
+import LogoSlider from '../../LandingPage/LogoSlider';
 
 
 const UsersHome = () => {
@@ -30,50 +32,73 @@ const UsersHome = () => {
         <HeroSection />
       </div>
 
+   <Slider />
+         <Overview />
+
+             <ListedOnSection />
+
+             
+      <div id="ecosystem">
+        <EcosystemSection />
+      </div>
+  <div id="project-plan">
+        <ProjectPlan />
+      </div>
+
+
+
+      <div id="tokenomics">
+        <TokenomicsTabs />
+      </div>
+
+
+        <div id="events">
+        <EventsSection />
+      </div>
+
+         <Choose /> 
+
+             <ICOTokenSale />
+
+             {/* <TokenProgress/> */}
+       <LogoSlider/>
+
+         <div id="products">
+        <OurProducts />
+      </div>
+
 
 
        <div id="platform">
         <PlatformSection />
       </div>
 
-      <Slider />
+   
 
-      <Overview />
 
-      <ListedOnSection />
 
-      <div id="ecosystem">
-        <EcosystemSection />
-      </div>
+  
 
-      <div id="products">
-        <OurProducts />
-      </div>
+
+   
 
      
 
-      <div id="tokenomics">
-        <TokenomicsTabs />
-      </div>
 
-      <div id="events">
-        <EventsSection />
-      </div>
+    
 
 
-      <Choose /> 
+   
 
-      <div id="project-plan">
-        <ProjectPlan />
-      </div>
+    
 
 
 
 
 
-       <ICOTokenSale />
+   
 
-      <Featured /> 
+    
 
        {/* <div id="recent-events">
         <RecentEvents />

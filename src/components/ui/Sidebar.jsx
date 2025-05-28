@@ -13,6 +13,22 @@ import navLogo from '../../userAssets/logo.png';
 
 
 const Sidebar = () => {
+    const fetchData = async () => {
+      try {
+        const res = await getLatestLogo();
+        if (Array.isArray(res) && res.length) {
+          setLogos(res); // ✅ Save API FAQs into state
+        }
+      } catch (err) {
+        console.error("Error fetching FAQs:", err);
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+ const [logos, setLogos] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [sideMenuList, setSideMenuList] = useState([]);
   const [activeLink, setActiveLink] = useState(
@@ -81,12 +97,18 @@ const Sidebar = () => {
         <div>
           <Link to={AuthenticatedRoutes.USER_DASHBOARD} className="nav-logo">
             <img
+            
               src={navLogo}
               alt="logo"
               height={900}
               className="nav-logo-icon"
             />
           </Link>
+
+
+
+
+          
 
           <div className="nav-toggle" id="nav-toggle" onClick={toggleSidebar}>
             {isSidebarOpen ? <IoIosArrowBack /> : <IoIosArrowForward />}

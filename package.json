@@ -37,7 +37,8 @@
     "recharts": "^2.15.3",
     "run": "^1.5.0",
     "socket.io-client": "^4.8.1",
-    "sweetalert2": "^11.15.3"
+    "sweetalert2": "^11.15.3",
+    "swiper": "^11.2.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

@@ -26,42 +26,45 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="bg-[#0f011f] text-white py-20 px-4 sm:px-10 relative font1">
-      <div className="text-center mb-12 max-w-2xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-gray-400 text-3xl sm:text-2xl">
-          Below is a list of frequently asked questions. Please check the FAQ before contacting support.
-        </p>
-      </div>
+  <section className="bg-[#0f011f] text-white py-20 px-4 sm:px-10 font1">
+  <div className="text-center mb-16 max-w-3xl mx-auto">
+    <h2 className="text-4xl sm:text-5xl font-bold mb-4">Frequently Asked Questions</h2>
+    <p className="text-lg sm:text-xl text-gray-400">
+      Below is a list of frequently asked questions and answers from partners.
+      <br className="hidden sm:block" />
+      Please check this FAQ before contacting us.
+    </p>
+  </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-        {faqs.map((faq, index) => (
-          <div
-            key={faq._id || index}
-            className="bg-gradient-to-r from-[#251151] to-[#180730] rounded-xl p-3 transition-all border border-purple-900 shadow-lg"
-          >
-            <button
-              onClick={() => toggleIndex(index)}
-              className="flex justify-between items-center w-full text-left"
-            >
-              <span className="text-5xl sm:text-4xl font-medium text-white">{faq.question}..?</span>
-              <ChevronDown
-                className={`w-5 h-5 text-purple-400 transition-transform duration-300 ${
-                  openIndex === index ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openIndex === index && (
-              <div className="mt-3 text-2xl sm:text-2xl text-green-600 leading-relaxed">
-                {faq.answer}
-              </div>
-            )}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+    {faqs.map((faq, index) => (
+      <div
+        key={faq._id || index}
+        className="bg-gradient-to-r from-[#1B0039] to-[#210240] border border-[#6617e2] rounded-lg p-4 sm:p-5"
+      >
+        <button
+          onClick={() => toggleIndex(index)}
+          className="flex justify-between items-center w-full text-left gap-4"
+        >
+          <span className="text-base sm:text-lg md:text-xl font-medium text-white">
+            {faq.question}
+          </span>
+          <ChevronDown
+            className={`w-5 h-5 text-purple-300 transition-transform duration-300 ${
+              openIndex === index ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+        {openIndex === index && (
+          <div className="mt-4 text-sm sm:text-base text-purple-100 leading-relaxed">
+            {faq.answer}
           </div>
-        ))}
+        )}
       </div>
-    </section>
+    ))}
+  </div>
+</section>
+
   );
 };
 

@@ -7,7 +7,6 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import { getOverview } from "../api/landingpage-api";
-
 const Overview = () => {
   const [overviewData, setOverviewData] = useState([]);
   const [dynamicImage, setDynamicImage] = useState(null);

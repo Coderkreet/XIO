@@ -34,7 +34,7 @@ export async function getProduct() {
 // Overview
 export async function getOverview() {
   const response = await axios.get(`${loginApiBaseAUrl}/overviews`)
-  console.log('respone',response.data)
+  // console.log('respone',response.data)
   return response?.data;
 }
 
@@ -44,6 +44,15 @@ export async function getAllWhyChooseUs() {
   // console.log('respone',response.data)
   return response?.data;
 }
+
+// === Logo ===
+export async function getLatestLogo() {
+  const response = await axios.get(`${loginApiBaseAUrl}/logos/latest`)
+   console.log('respone',response.data)
+  return response?.data;
+}
+
+
 
 
 
